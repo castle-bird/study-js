@@ -16,7 +16,7 @@ function closePlayerConfig() {
 
 function savePlayerConfig(event) {
     event.preventDefault();
-    // new FromDate(event.target)
+    // new FromData(event.target)
     // 브라우저 기본 함수
     // form태그 안에 name속성을 가지고 있는 것들을 객체로 리턴한다
     // get('name 문자열') 로 name에 있는 input에 접근이 가능하다
