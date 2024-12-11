@@ -1,4 +1,1 @@
-[
-    { "name": "테스트1", "address": "테스트1", "cuisine": "테스트1", "website": "https://www.naver.com/", "description": "테스트1" },
-    { "name": "테스트2", "address": "테스트2", "cuisine": "테스트2", "website": "https://www.naver.com/", "description": "테스트2테스트2" }
-]
+[{"name":"레스토랑 이름 1","address":"레스토랑 주소 1","cuisine":"레스토랑 요리 1","website":"https://www.naver.com/","description":"레스토랑 설명 1"}]

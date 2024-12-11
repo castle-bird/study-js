@@ -1,9 +1,10 @@
-const express = require("express");
 const fs = require("fs");
 const path = require("path");
 
+const express = require("express");
+const uuid = require("uuid");
+
 const app = express();
-const ejs = require("ejs");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -12,7 +13,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", function (req, res) {
-    res.render('index');
+    res.render("index");
 });
 
 app.get("/restaurants", function (req, res) {
@@ -21,24 +22,30 @@ app.get("/restaurants", function (req, res) {
     const fileData = fs.readFileSync(filePath);
     const storedRestaurants = JSON.parse(fileData);
 
-    res.render('restaurants', {
+    res.render("restaurants", {
         numberOfRestaurants: storedRestaurants.length,
-        restaurants : storedRestaurants
+        restaurants: storedRestaurants,
     });
 });
 
+app.get("/restaurants/:id", function (req, res) {
+    const restaurantID = req.params.id;
+    res.render("recommend_detail", { restaurantID });
+});
+
 app.get("/recommend", function (req, res) {
-    res.render('recommend');
+    res.render("recommend");
 });
 
 app.post("/recommend", function (req, res) {
-    const restaurants = req.body;
+    const restaurant = req.body;
+    restaurant.id = uuid.v4();
     const filePath = path.join(__dirname, "data", "restaurants.json");
 
     const fileData = fs.readFileSync(filePath);
     const storedRestaurants = JSON.parse(fileData);
 
-    storedRestaurants.push(restaurants);
+    storedRestaurants.push(restaurant);
 
     fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
 
@@ -46,11 +53,11 @@ app.post("/recommend", function (req, res) {
 });
 
 app.get("/confirm", function (req, res) {
-    res.render('confirm');
+    res.render("confirm");
 });
 
 app.get("/about", function (req, res) {
-    res.render('about');
+    res.render("about");
 });
 
 app.listen(3000);
